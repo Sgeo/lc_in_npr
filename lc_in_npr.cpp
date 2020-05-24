@@ -11,7 +11,12 @@ static NP_ShutdownFunc True_NP_Shutdown = NULL;
 
 static HMODULE thisModule = NULL;
 
-__declspec(dllexport) NPError APIENTRY NP_Initialize(NPNetscapeFuncs *pFuncs) {
+// https://stackoverflow.com/a/41910450
+#define EXPORT comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+
+NPError APIENTRY NP_Initialize(NPNetscapeFuncs *pFuncs) {
+#pragma EXPORT
+	MessageBox(NULL, L"NP_Initialize called", L"Log", 0);
 	WCHAR path[MAX_PATH];
 	GetModuleFileNameW(thisModule, path, MAX_PATH);
 	path[wcslen(path) - 1] = '0';
@@ -20,7 +25,9 @@ __declspec(dllexport) NPError APIENTRY NP_Initialize(NPNetscapeFuncs *pFuncs) {
 	return realInit(pFuncs);
 }
 
-__declspec(dllexport) NPError APIENTRY NP_GetEntryPoints(NPPluginFuncs *pFuncs) {
+NPError APIENTRY NP_GetEntryPoints(NPPluginFuncs *pFuncs) {
+#pragma EXPORT
+	MessageBox(NULL, L"NP_GetEntryPoints called", L"Log", 0);
 	WCHAR path[MAX_PATH];
 	GetModuleFileNameW(thisModule, path, MAX_PATH);
 	path[wcslen(path) - 1] = '0';
@@ -29,7 +36,8 @@ __declspec(dllexport) NPError APIENTRY NP_GetEntryPoints(NPPluginFuncs *pFuncs) 
 	return realGetEntryPoints(pFuncs);
 }
 
-__declspec(dllexport) NPError APIENTRY NP_Shutdown() {
+NPError APIENTRY NP_Shutdown() {
+#pragma EXPORT
 	WCHAR path[MAX_PATH];
 	GetModuleFileNameW(thisModule, path, MAX_PATH);
 	path[wcslen(path) - 1] = '0';

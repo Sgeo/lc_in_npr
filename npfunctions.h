@@ -287,11 +287,11 @@ typedef NPError     (OSCALL *NP_GetPluginDataFunc)(NPPluginData*);
 NPError OSCALL      NP_GetPluginData(NPPluginData * pPluginData);
 #endif
 typedef NPError     (OSCALL *NP_GetEntryPointsFunc)(NPPluginFuncs*);
-__declspec(dllexport) NPError OSCALL      NP_GetEntryPoints(NPPluginFuncs* pFuncs);
+NPError OSCALL      NP_GetEntryPoints(NPPluginFuncs* pFuncs);
 typedef NPError     (OSCALL *NP_InitializeFunc)(NPNetscapeFuncs*);
-__declspec(dllexport) NPError OSCALL      NP_Initialize(NPNetscapeFuncs* bFuncs);
+NPError OSCALL      NP_Initialize(NPNetscapeFuncs* bFuncs);
 typedef NPError     (OSCALL *NP_ShutdownFunc)(void);
-__declspec(dllexport) NPError OSCALL      NP_Shutdown(void);
+NPError OSCALL      NP_Shutdown(void);
 typedef const char* (*NP_GetMIMEDescriptionFunc)(void);
 const char*         NP_GetMIMEDescription(void);
 #ifdef __cplusplus
